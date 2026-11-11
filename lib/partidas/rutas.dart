@@ -5,14 +5,14 @@ import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_web_socket/shelf_web_socket.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-import '../auth/errors.dart';
-import '../auth/middleware.dart';
-import '../auth/service.dart';
-import 'errors.dart';
+import '../autenticacion/errores.dart';
+import '../autenticacion/middleware.dart';
+import '../autenticacion/servicio.dart';
+import 'errores.dart';
 import 'modelos.dart';
 import 'sala.dart';
-import 'schemas.dart';
-import 'service.dart';
+import 'esquemas.dart';
+import 'servicio.dart';
 
 const Map<String, String> _jsonHeaders = {'content-type': 'application/json'};
 

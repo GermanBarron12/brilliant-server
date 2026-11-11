@@ -1,4 +1,4 @@
-import 'errors.dart';
+import 'errores.dart';
 
 /// Regex de nombre de usuario: letras, numeros, guion bajo y punto, 3 a 32
 /// caracteres (sin exigir formato de email), igual que el esquema Zod

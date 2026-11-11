@@ -1,7 +1,7 @@
-import '../errors.dart';
+import '../errores.dart';
 
 /// Errores de dominio del servicio de autenticacion. El handler central de
-/// `app.dart` los traduce a codigos HTTP sin exponer nunca detalles internos
+/// `aplicacion.dart` los traduce a codigos HTTP sin exponer nunca detalles internos
 /// (stack traces, mensajes de SQLite, etc.) en la respuesta.
 class AuthError extends ApiError {
   const AuthError(super.status, super.code, super.message);

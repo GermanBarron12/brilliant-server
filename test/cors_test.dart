@@ -1,6 +1,6 @@
-import 'package:brilliant_server/app.dart';
-import 'package:brilliant_server/config.dart';
-import 'package:brilliant_server/db/connection.dart';
+import 'package:brilliant_server/aplicacion.dart';
+import 'package:brilliant_server/configuracion.dart';
+import 'package:brilliant_server/bd/conexion.dart';
 import 'package:shelf/shelf.dart';
 import 'package:sqlite3/sqlite3.dart';
 import 'package:test/test.dart';

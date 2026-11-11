@@ -31,8 +31,8 @@ mantuvieron igual durante esa migracion.
 
 ```bash
 dart pub get                 # instala dependencias
-dart run bin/migrate.dart    # crea/actualiza la base SQLite
-dart run bin/server.dart     # levanta el servidor (puerto 3000 por defecto)
+dart run bin/migrar.dart     # crea/actualiza la base SQLite
+dart run bin/servidor.dart   # levanta el servidor (puerto 3000 por defecto)
 dart test                    # corre la suite de tests
 ```
 
@@ -44,7 +44,7 @@ correr el servidor, igual que antes).
 
 Este servidor usa el paquete oficial `package:sqlite3` (bindings FFI sobre
 la libreria nativa de SQLite) para toda la persistencia, sin ORM: todas las
-consultas son SQL crudo (ver `lib/db/connection.dart` y `lib/auth/service.dart`).
+consultas son SQL crudo (ver `lib/bd/conexion.dart` y `lib/autenticacion/servicio.dart`).
 
 - A diferencia de Node (que trae `node:sqlite` embebido desde la version
   22.5), en Dart hace falta que la libreria nativa de SQLite este instalada
@@ -52,11 +52,11 @@ consultas son SQL crudo (ver `lib/db/connection.dart` y `lib/auth/service.dart`)
 - No hay helper de transaccion de alto nivel: las operaciones que requieren
   atomicidad (por ejemplo, `eliminarCuenta`, que borra el usuario y sus
   sesiones en cascada) se envuelven manualmente en `BEGIN` / `COMMIT` /
-  `ROLLBACK` (ver `lib/auth/service.dart`).
+  `ROLLBACK` (ver `lib/autenticacion/servicio.dart`).
 
 ## Rate limiting
 
-El limitador de intentos de login y registro (`lib/auth/middleware.dart`)
+El limitador de intentos de login y registro (`lib/autenticacion/middleware.dart`)
 guarda sus contadores **en memoria del proceso**, con una ventana deslizante
 implementada a mano (no existe un paquete equivalente a
 `express-rate-limit` para `shelf`).
@@ -141,11 +141,11 @@ solo a quien mando un mensaje invalido.
   SESION_YA_ACTIVA` mientras ya haya una sesion vigente de ese usuario en
   otro dispositivo (hay que cerrar sesion ahi, o esperar a que expire,
   antes de poder entrar desde otro lado). Ver `AuthService.login` en
-  `lib/auth/service.dart`.
+  `lib/autenticacion/servicio.dart`.
 - Tokens de sesion aleatorios (32 bytes), guardados en la base solo como
   hash SHA-256.
 - Validacion de entrada manual (reglas de nombre de usuario y contrasena en
-  `lib/auth/schemas.dart`).
+  `lib/autenticacion/esquemas.dart`).
 - Cabeceras de seguridad basicas (equivalentes a Helmet) en todas las
   respuestas.
 - Los manejadores de error no exponen trazas de pila ni mensajes internos

@@ -4,13 +4,13 @@ import 'dart:io';
 import 'package:shelf/shelf.dart';
 import 'package:sqlite3/sqlite3.dart';
 
-import 'auth/routes.dart';
-import 'auth/service.dart';
-import 'config.dart';
-import 'errors.dart';
-import 'partidas/routes.dart';
+import 'autenticacion/rutas.dart';
+import 'autenticacion/servicio.dart';
+import 'configuracion.dart';
+import 'errores.dart';
+import 'partidas/rutas.dart';
 import 'partidas/sala.dart';
-import 'partidas/service.dart';
+import 'partidas/servicio.dart';
 
 const Map<String, String> _jsonHeaders = {'content-type': 'application/json'};
 

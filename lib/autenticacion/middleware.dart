@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:shelf/shelf.dart';
 
-import '../config.dart';
-import 'errors.dart';
-import 'service.dart';
+import '../configuracion.dart';
+import 'errores.dart';
+import 'servicio.dart';
 
 String claveClienteIp(Request request) {
   final info = request.context['shelf.io.connection_info'];

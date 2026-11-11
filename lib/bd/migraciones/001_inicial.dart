@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
-// (se mantiene el nombre "001_init.dart" para que las migraciones futuras
-// se ordenen igual que antes, con un numero de secuencia al frente).
+// (se mantiene el numero de secuencia al frente para que las migraciones
+// futuras se ordenen igual que antes).
 /// Mismo esquema SQL que usaba el backend en Node/TypeScript.
 const String migracion001Init = '''
 CREATE TABLE IF NOT EXISTS usuarios (

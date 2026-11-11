@@ -1,4 +1,4 @@
-import 'errors.dart';
+import 'errores.dart';
 
 /// Los unicos niveles oficiales que existen hoy en el cliente (ver
 /// `lib/niveles_oficiales.dart`). Se valida contra esta lista fija en vez

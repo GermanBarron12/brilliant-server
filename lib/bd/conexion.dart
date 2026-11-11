@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:sqlite3/sqlite3.dart';
 
-import 'migrations/001_init.dart';
-import 'migrations/002_partidas.dart';
-import 'migrations/003_multijugador.dart';
+import 'migraciones/001_inicial.dart';
+import 'migraciones/002_partidas.dart';
+import 'migraciones/003_multijugador.dart';
 
 /// Abre (o crea) la base SQLite en [databasePath] y aplica las migraciones
 /// si todavia no fueron aplicadas. Los tests usan ':memory:' para no tocar

@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:brilliant_server/auth/errors.dart';
-import 'package:brilliant_server/auth/service.dart';
-import 'package:brilliant_server/config.dart';
-import 'package:brilliant_server/db/connection.dart';
+import 'package:brilliant_server/autenticacion/errores.dart';
+import 'package:brilliant_server/autenticacion/servicio.dart';
+import 'package:brilliant_server/configuracion.dart';
+import 'package:brilliant_server/bd/conexion.dart';
 import 'package:crypto/crypto.dart' as crypto;
 import 'package:sqlite3/sqlite3.dart';
 import 'package:test/test.dart';

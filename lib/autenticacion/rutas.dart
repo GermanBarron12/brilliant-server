@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-import '../config.dart';
+import '../configuracion.dart';
 import 'middleware.dart';
-import 'schemas.dart';
-import 'service.dart';
+import 'esquemas.dart';
+import 'servicio.dart';
 
 const Map<String, String> _jsonHeaders = {'content-type': 'application/json'};
 

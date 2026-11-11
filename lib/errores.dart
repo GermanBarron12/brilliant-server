@@ -1,4 +1,4 @@
-/// Error base de la API: el handler central de `app.dart` lo traduce a una
+/// Error base de la API: el handler central de `aplicacion.dart` lo traduce a una
 /// respuesta HTTP (status + codigo + mensaje) sin exponer nunca detalles
 /// internos (stack traces, mensajes de SQLite, etc.). Los errores de
 /// dominio de cada modulo (auth, partidas) extienden esta clase, asi el

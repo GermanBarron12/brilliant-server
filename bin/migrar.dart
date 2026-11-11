@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:brilliant_server/config.dart';
-import 'package:brilliant_server/db/connection.dart';
+import 'package:brilliant_server/configuracion.dart';
+import 'package:brilliant_server/bd/conexion.dart';
 
 void main() {
   final config = Config.desdeEntorno(Platform.environment);

@@ -1,7 +1,7 @@
-import '../errors.dart';
+import '../errores.dart';
 
 /// Errores de dominio del lobby y las partidas multijugador. El handler
-/// central de `app.dart` los traduce a codigos HTTP (ver [ApiError]).
+/// central de `aplicacion.dart` los traduce a codigos HTTP (ver [ApiError]).
 class PartidaError extends ApiError {
   const PartidaError(super.status, super.code, super.message);
 }

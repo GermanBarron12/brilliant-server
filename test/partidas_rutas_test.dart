@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:brilliant_server/app.dart';
-import 'package:brilliant_server/config.dart';
-import 'package:brilliant_server/db/connection.dart';
+import 'package:brilliant_server/aplicacion.dart';
+import 'package:brilliant_server/configuracion.dart';
+import 'package:brilliant_server/bd/conexion.dart';
 import 'package:http/http.dart' as http;
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:sqlite3/sqlite3.dart';

@@ -6,8 +6,8 @@ import 'package:cryptography/cryptography.dart';
 import 'package:sqlite3/sqlite3.dart';
 import 'package:uuid/uuid.dart';
 
-import '../config.dart';
-import 'errors.dart';
+import '../configuracion.dart';
+import 'errores.dart';
 
 class Usuario {
   const Usuario({required this.id, required this.nombreUsuario, required this.createdAt});

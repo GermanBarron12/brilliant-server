@@ -5,14 +5,14 @@ import 'package:brilliant_core/brilliant_core.dart';
 import 'package:sqlite3/sqlite3.dart';
 import 'package:uuid/uuid.dart';
 
-import 'errors.dart';
+import 'errores.dart';
 import 'modelos.dart';
 
 const Uuid _uuid = Uuid();
 final Random _random = Random.secure();
 
 /// Codigo de resultado extendido de SQLite para una violacion de una
-/// restriccion UNIQUE (mismo valor que usa `auth/service.dart`).
+/// restriccion UNIQUE (mismo valor que usa `autenticacion/servicio.dart`).
 const int _sqliteConstraintUnique = 2067;
 
 /// Caracteres para el codigo de invitacion: sin 0/O ni 1/I/L, para que no

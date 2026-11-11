@@ -1,7 +1,7 @@
-import 'package:brilliant_server/db/connection.dart';
-import 'package:brilliant_server/partidas/errors.dart';
+import 'package:brilliant_server/bd/conexion.dart';
+import 'package:brilliant_server/partidas/errores.dart';
 import 'package:brilliant_server/partidas/modelos.dart';
-import 'package:brilliant_server/partidas/service.dart';
+import 'package:brilliant_server/partidas/servicio.dart';
 import 'package:sqlite3/sqlite3.dart';
 import 'package:test/test.dart';
 
