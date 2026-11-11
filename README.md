@@ -40,6 +40,48 @@ Configurar variables de entorno copiando `.env.example` a `.env` (Dart lee
 `Platform.environment`, asi que hay que exportarlas en la terminal antes de
 correr el servidor, igual que antes).
 
+## Como correrlo para jugar entre varios dispositivos (red local)
+
+Para que otros dispositivos (celular, otra compu) se conecten a este
+servidor, todos tienen que estar en la misma red local, y el cliente tiene
+que apuntar a la IP de esta maquina (no a `localhost`). Pasos:
+
+1. Instalar dependencias y crear/actualizar la base:
+
+   ```bash
+   dart pub get
+   dart run bin/migrar.dart
+   ```
+
+2. Levantar el servidor con `CORS_ORIGIN` configurado (solo hace falta si
+   algun cliente corre en un navegador; los clientes nativos de
+   Android/iOS no lo necesitan):
+
+   PowerShell:
+
+   ```powershell
+   $env:CORS_ORIGIN="http://localhost:5173"; dart run bin/servidor.dart
+   ```
+
+   cmd:
+
+   ```bat
+   set CORS_ORIGIN=http://localhost:5173&& dart run bin/servidor.dart
+   ```
+
+   (sin espacio antes de `&&`)
+
+3. Si algun dispositivo de otra maquina no logra conectarse, lo mas comun
+   es que el Firewall de Windows este bloqueando conexiones entrantes al
+   puerto 3000: hay que agregar una regla de entrada para `dart.exe` o para
+   ese puerto.
+
+Ver el README del cliente
+([brilliant](https://github.com/GermanBarron12/brilliantt)) para los pasos
+completos de como conectar cada dispositivo (como averiguar la IP local,
+como pasarle `API_BASE_URL` a cada cliente, y como crear/unirse a una
+partida).
+
 ## Persistencia: `package:sqlite3`
 
 Este servidor usa el paquete oficial `package:sqlite3` (bindings FFI sobre
