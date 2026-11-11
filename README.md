@@ -29,6 +29,26 @@ mantuvieron igual durante esa migracion.
 
 ## Scripts
 
+### Forma rapida: un solo comando
+
+```bat
+iniciar_servidor.bat
+```
+
+(en PowerShell: `.\iniciar_servidor.ps1`)
+
+Instala dependencias, aplica las migraciones y levanta el servidor, todo
+en un solo paso. Si algun cliente corre en un navegador, pasarle el
+origen como parametro (por defecto usa `http://localhost:5173`):
+
+```bat
+iniciar_servidor.bat http://192.168.1.50:5173
+```
+
+(en PowerShell: `.\iniciar_servidor.ps1 -CorsOrigin "http://192.168.1.50:5173"`)
+
+### Forma manual (paso a paso)
+
 ```bash
 dart pub get                 # instala dependencias
 dart run bin/migrar.dart     # crea/actualiza la base SQLite
@@ -46,32 +66,17 @@ Para que otros dispositivos (celular, otra compu) se conecten a este
 servidor, todos tienen que estar en la misma red local, y el cliente tiene
 que apuntar a la IP de esta maquina (no a `localhost`). Pasos:
 
-1. Instalar dependencias y crear/actualizar la base:
-
-   ```bash
-   dart pub get
-   dart run bin/migrar.dart
-   ```
-
-2. Levantar el servidor con `CORS_ORIGIN` configurado (solo hace falta si
-   algun cliente corre en un navegador; los clientes nativos de
-   Android/iOS no lo necesitan):
-
-   PowerShell:
-
-   ```powershell
-   $env:CORS_ORIGIN="http://localhost:5173"; dart run bin/servidor.dart
-   ```
-
-   cmd:
+1. Levantar el servidor con el script, pasandole el `CORS_ORIGIN` si algun
+   cliente corre en un navegador (los clientes nativos de Android/iOS no
+   lo necesitan):
 
    ```bat
-   set CORS_ORIGIN=http://localhost:5173&& dart run bin/servidor.dart
+   iniciar_servidor.bat http://localhost:5173
    ```
 
-   (sin espacio antes de `&&`)
+   (en PowerShell: `.\iniciar_servidor.ps1 -CorsOrigin "http://localhost:5173"`)
 
-3. Si algun dispositivo de otra maquina no logra conectarse, lo mas comun
+2. Si algun dispositivo de otra maquina no logra conectarse, lo mas comun
    es que el Firewall de Windows este bloqueando conexiones entrantes al
    puerto 3000: hay que agregar una regla de entrada para `dart.exe` o para
    ese puerto.
