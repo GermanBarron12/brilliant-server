@@ -1,11 +1,20 @@
-# Brilliant - Servidor de autenticacion
+# Brilliant - Servidor
 
-Servidor independiente de autenticacion para Brilliant (registro, login,
-identidad, logout, borrado de cuenta). No implementa logica de partidas,
-multijugador, salas, turnos ni puntuaciones.
+Servidor de Brilliant en Dart: autenticacion (registro, login, identidad,
+logout, borrado de cuenta) y partidas multijugador (salas, codigo de
+invitacion, turnos, tirada de dados compartida, puntaje por zona y fin de
+partida), estas ultimas en tiempo real por WebSocket.
 
-Escrito en Dart (antes era Node.js/TypeScript); el contrato HTTP, la base
-SQLite y el modelo de seguridad se mantuvieron igual durante la migracion.
+Repo separado del cliente Flutter
+([brilliant](https://github.com/GermanBarron12/brilliantt)): se comunican
+solo por HTTP y WebSocket, nunca por import directo. Comparten la logica
+pura de las reglas del juego a traves de `packages/brilliant_core`, que
+vive como copia independiente en cada uno de los dos repos (si se cambia
+una regla hay que aplicar el cambio en los dos).
+
+La parte de autenticacion esta escrita en Dart (antes era Node.js/
+TypeScript); el contrato HTTP, la base SQLite y el modelo de seguridad se
+mantuvieron igual durante esa migracion.
 
 ## Requisitos
 
@@ -88,10 +97,51 @@ en un navegador (por ejemplo `flutter run -d chrome`), hay que configurar
 desde donde corre esa app. Sin esa variable, CORS queda deshabilitado por
 completo y ningun navegador puede llamar a la API.
 
+## Partidas multijugador
+
+Toda ruta de `/partidas/*` requiere sesion (header `Authorization: Bearer
+<token>`), salvo el websocket, que la recibe como query param `token` (ver
+mas abajo). Logica en `lib/partidas/` (`routes.dart`, `service.dart`,
+`sala.dart`, `modelos.dart`).
+
+- `POST /partidas`: crea una partida (`nivelId`, `maxJugadores`) y devuelve
+  su codigo de invitacion.
+- `GET /partidas/<codigo>`: estado de la partida (lobby, participantes,
+  etc.) por su codigo.
+- `POST /partidas/<codigo>/unirse`: se une a una partida en lobby.
+- `POST /partidas/<codigo>/iniciar`: el creador la pasa a "eligiendo
+  numeros" (minimo 2 jugadores).
+- `POST /partidas/<codigo>/numeros-iniciales`: cada jugador manda sus 6
+  numeros iniciales; cuando todos confirmaron, pasa a "en curso".
+- `GET /partidas/<codigo>/ws?token=<token>`: websocket de la partida en
+  curso. El servidor es la unica fuente de verdad: valida cada mensaje
+  entrante y nunca confia en lo que un cliente dice que paso (ver
+  `SalaDePartida` en `lib/partidas/sala.dart`).
+
+Mensajes que acepta el websocket (`{"tipo": "...", ...}`):
+
+- `tirar_dados`: tira los dados de la ronda (solo quien tiene el turno; en
+  las rondas siguientes a la primera, el servidor ya los tira solo al
+  cerrarse la ronda anterior).
+- `seleccionar_dado` (`valor`): elige con cual de los dos dados anclar.
+- `tocar_casilla` (`fila`, `columna`): elige el ancla o coloca el numero,
+  segun corresponda.
+- `pasar_ronda`: pasa la jugada de esta ronda.
+- `rendirse`: se rinde (deja de jugar, pero puede seguir mirando).
+
+El servidor contesta difundiendo `{"tipo": "estado", "partida": {...}}` a
+todos los conectados tras cada cambio, o `{"tipo": "error", "error": {...}}`
+solo a quien mando un mensaje invalido.
+
 ## Seguridad
 
 - Contrasenas hasheadas con Argon2id (`package:cryptography`), nunca en
   claro.
+- Una sola sesion activa por usuario: un login nuevo se rechaza con `409
+  SESION_YA_ACTIVA` mientras ya haya una sesion vigente de ese usuario en
+  otro dispositivo (hay que cerrar sesion ahi, o esperar a que expire,
+  antes de poder entrar desde otro lado). Ver `AuthService.login` en
+  `lib/auth/service.dart`.
 - Tokens de sesion aleatorios (32 bytes), guardados en la base solo como
   hash SHA-256.
 - Validacion de entrada manual (reglas de nombre de usuario y contrasena en
