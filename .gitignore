@@ -1,0 +1,36 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.history
+
+# IntelliJ / Android Studio related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# El folder .vscode guarda la configuración de lanzamiento y tareas de
+# VS Code, con rutas absolutas de la máquina de cada quien.
+.vscode/
+
+# Configuración local de Claude Code (lanzamiento de previsualización, etc.).
+.claude/
+
+# Dart/Pub related
+.dart_tool/
+.pub-cache/
+.pub/
+/build/
+
+# Datos locales de SQLite y variables de entorno con secretos.
+# pubspec.lock SI se versiona (es un paquete de aplicacion, no una
+# libreria reutilizable).
+/data/
+.env
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
